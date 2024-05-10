@@ -1,7 +1,7 @@
-var btn_add_task = document.getElementById("add-task-btn");
+var btnAddtask = document.getElementById("add-task-btn");
 var input = document.getElementById("add-task-input");
 var toDoContainer = document.getElementById("to-do-container");
-btn_add_task.addEventListener('click', addTask);
+btnAddtask.addEventListener('click', addTask);
 
 function addTask() {
     let taskDiv = document.createElement("div");
