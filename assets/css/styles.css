@@ -27,6 +27,13 @@ main,
   align-items: center;
   padding: 8px;
   margin: 5px;
+  position: relative;
+  gap: 10px;
+}
+
+.trash {
+  position: absolute;
+  right: 10px;
 }
 
 main {
