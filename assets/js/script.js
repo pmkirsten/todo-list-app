@@ -14,7 +14,7 @@ function handleAddTask(event) {
 
 
 function addTask() {
-    if (input.value.split("").length > 0) {
+    if (input.value.length > 0) {
         let taskDiv = document.createElement("div");
         taskDiv.className = "task";
         let mark = createMarkAsDoneIcon()
