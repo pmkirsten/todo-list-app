@@ -1,0 +1,28 @@
+header,
+main,
+#add-task-container,
+#lists-container {
+  display: flex;
+  justify-content: center;
+}
+
+#lists-container {
+  gap: 10px;
+}
+
+#to-do-container,
+#done-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+main {
+  flex-direction: column;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}

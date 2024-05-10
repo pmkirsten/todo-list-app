@@ -1,0 +1,1 @@
+var btn_add_task = document.getElementById("add-task-btn");
