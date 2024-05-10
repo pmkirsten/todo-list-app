@@ -3,6 +3,10 @@
   border: 1px solid black;
 }
 
+.hidden {
+  display: none !important;
+}
+
 header,
 main,
 #add-task-container,
