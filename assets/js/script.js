@@ -3,32 +3,43 @@ var input = document.getElementById("add-task-input");
 var toDoContainer = document.getElementById("to-do-container");
 var doneContainer = document.getElementById("done-container");
 btnAddtask.addEventListener('click', addTask);
+input.addEventListener('keypress', handleAddTask);
+
+function handleAddTask(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        addTask();
+    }
+}
+
 
 function addTask() {
-    let taskDiv = document.createElement("div");
-    taskDiv.className = "task";
-    let mark = createMarkAsDoneIcon()
-    taskDiv.appendChild(mark);
-    mark.addEventListener('click', function () {
-        this.classList.toggle("hidden");
-        doneContainer.appendChild(this.parentNode);
-        this.parentNode.children[1].classList.toggle("hidden");
-    });
-    let unmark = createMarkAsToDoIcon()
-    taskDiv.appendChild(unmark);
-    unmark.addEventListener('click', function () {
-        this.classList.toggle("hidden");
-        toDoContainer.appendChild(this.parentNode);
-        this.parentNode.children[0].classList.toggle("hidden");
-    });
-    taskDiv.appendChild(createTaskName(input.value));
-    let erase = createTrashIcon();
-    taskDiv.appendChild(erase);
-    erase.addEventListener('click', function () {
-        this.parentNode.remove();
-    })
-    input.value = '';
-    toDoContainer.appendChild(taskDiv)
+    if (input.value.split("").length > 0) {
+        let taskDiv = document.createElement("div");
+        taskDiv.className = "task";
+        let mark = createMarkAsDoneIcon()
+        taskDiv.appendChild(mark);
+        mark.addEventListener('click', function () {
+            this.classList.toggle("hidden");
+            doneContainer.appendChild(this.parentNode);
+            this.parentNode.children[1].classList.toggle("hidden");
+        });
+        let unmark = createMarkAsToDoIcon()
+        taskDiv.appendChild(unmark);
+        unmark.addEventListener('click', function () {
+            this.classList.toggle("hidden");
+            toDoContainer.appendChild(this.parentNode);
+            this.parentNode.children[0].classList.toggle("hidden");
+        });
+        taskDiv.appendChild(createTaskName(input.value));
+        let erase = createTrashIcon();
+        taskDiv.appendChild(erase);
+        erase.addEventListener('click', function () {
+            this.parentNode.remove();
+        })
+        input.value = '';
+        toDoContainer.appendChild(taskDiv)
+    }
 }
 
 function createMarkAsDoneIcon() {
