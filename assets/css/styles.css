@@ -1,5 +1,6 @@
 * {
   font-family: "Poetsen One", sans-serif;
+  border: 1px solid black;
 }
 
 header,
@@ -19,6 +20,13 @@ main,
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  margin: 5px;
 }
 
 main {
