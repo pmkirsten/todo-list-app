@@ -6,8 +6,22 @@ btnAddtask.addEventListener('click', addTask);
 function addTask() {
     let taskDiv = document.createElement("div");
     taskDiv.className = "task";
-    taskDiv.innerText = input.value;
+    taskDiv.appendChild(createMarkAsDoneIcon());
+    taskDiv.appendChild(createTaskName(input.value));
     input.value = '';
     toDoContainer.appendChild(taskDiv)
 }
 
+function createMarkAsDoneIcon() {
+    let span = document.createElement("span");
+    span.className = "material-symbols-outlined mark-as-done"
+    span.innerText = "radio_button_unchecked";
+    return span
+}
+
+function createTaskName(taskName) {
+    let span = document.createElement("span");
+    span.className = "task_name"
+    span.innerText = taskName;
+    return span;
+}
