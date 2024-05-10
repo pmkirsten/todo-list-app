@@ -3,14 +3,12 @@ var input = document.getElementById("add-task-input");
 var toDoContainer = document.getElementById("to-do-container");
 var doneContainer = document.getElementById("done-container");
 btnAddtask.addEventListener('click', addTask);
-input.addEventListener('keypress', handleAddTask);
-
-function handleAddTask(event) {
+input.addEventListener('keypress', function (event) {
     if (event.key === "Enter") {
         event.preventDefault();
         addTask();
     }
-}
+});
 
 
 function addTask() {
