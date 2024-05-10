@@ -13,16 +13,20 @@ function addTask() {
         this.classList.toggle("hidden");
         doneContainer.appendChild(this.parentNode);
         this.parentNode.children[1].classList.toggle("hidden");
-    })
+    });
     let unmark = createMarkAsToDoIcon()
     taskDiv.appendChild(unmark);
     unmark.addEventListener('click', function () {
         this.classList.toggle("hidden");
         toDoContainer.appendChild(this.parentNode);
         this.parentNode.children[0].classList.toggle("hidden");
-    })
+    });
     taskDiv.appendChild(createTaskName(input.value));
-    taskDiv.appendChild(createTrashIcon());
+    let erase = createTrashIcon();
+    taskDiv.appendChild(erase);
+    erase.addEventListener('click', function () {
+        this.parentNode.remove();
+    })
     input.value = '';
     toDoContainer.appendChild(taskDiv)
 }
