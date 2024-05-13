@@ -149,9 +149,7 @@ function Task(taskName, taskLimit, taskDone) {
 
 function recoverTaskFromLocalStorage() {
     for (let i = 0; i < localStorage.length; i++) {
-        console.log(localStorage.getItem(localStorage.key(i)))
         let taskObj = JSON.parse(localStorage.getItem(localStorage.key(i)));
-        console.log(createRecoveredTaskFromLocalStorage(taskObj));
         let taskHTML = createRecoveredTaskFromLocalStorage(taskObj);
         if (taskObj.taskDone) {
             doneContainer.appendChild(taskHTML);
