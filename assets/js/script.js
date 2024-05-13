@@ -78,6 +78,12 @@ function createLimitDate(dateLimit) {
     let inputDate = new Date(dateLimit.value);
     date.innerText = inputDate.toLocaleDateString();
     div.appendChild(date)
+    let actualDate = new Date();
+    inputDate.setDate(inputDate.getDate() + 1);
+    if (inputDate < actualDate) {
+        icon.classList.toggle("limit-date-exceed");
+        date.classList.toggle("limit-date-exceed");
+    }
     dateLimit.value = '';
     return div;
 }
