@@ -42,10 +42,10 @@ function addTask() {
         })
 
         let task = new Task(input.value, limitDateInput.value, false);
-
-        console.log(task)
         input.value = '';
         limitDateInput.value = '';
+        localStorage.setItem(task.id, JSON.stringify(task));
+        taskDiv.id = task.id;
         toDoContainer.appendChild(taskDiv)
     }
 }
@@ -104,17 +104,27 @@ function Task(taskName, taskLimit, taskDone) {
     this.taskLimit = taskLimit;
     this.taskDone = taskDone;
     this.taskCreate = new Date();
+    this.id = crypto.randomUUID();
 
-    this.getName = function () {
-        return this.taskName;
-    };
-    this.getLimitDate = function () {
-        return this.taskLimit;
-    };
-    this.isDone = function () {
-        return this.taskDone
-    };
-    this.getCreationDate = function () {
-        return this.taskCreate;
-    }
+    // this.getName = function () {
+    //     return this.taskName;
+    // };
+    // this.getLimitDate = function () {
+    //     return this.taskLimit;
+    // };
+    // this.isDone = function () {
+    //     return this.taskDone
+    // };
+    // this.getCreationDate = function () {
+    //     return this.taskCreate;
+    // }
+    // this.markAsDone = function () {
+    //     this.taskDone = true;
+    // }
+    // this.markAsNotDone = function () {
+    //     this.taskDone = false;
+    // }
+    // this.getID = function () {
+    //     return this.id;
+    // }
 }
