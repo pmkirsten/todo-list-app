@@ -18,40 +18,18 @@ function addTask() {
         taskDiv.className = "task";
         let mark = createMarkAsDoneIcon()
         taskDiv.appendChild(mark);
-        mark.addEventListener('click', function () {
-            this.classList.toggle("hidden");
-            doneContainer.appendChild(this.parentNode);
-            this.parentNode.children[1].classList.toggle("hidden");
-            let taskId = this.parentNode.id;
-            let taskString = localStorage.getItem(taskId);
-            let taskObj = JSON.parse(taskString);
-            taskObj.taskDone = true;
-            localStorage.setItem(taskId, JSON.stringify(taskObj));
-        });
+        mark.addEventListener('click', markAsDone);
         let unmark = createMarkAsToDoIcon()
         taskDiv.appendChild(unmark);
-        unmark.addEventListener('click', function () {
-            this.classList.toggle("hidden");
-            toDoContainer.appendChild(this.parentNode);
-            this.parentNode.children[0].classList.toggle("hidden");
-            let taskId = this.parentNode.id;
-            let taskString = localStorage.getItem(taskId);
-            let taskObj = JSON.parse(taskString);
-            taskObj.taskDone = false;
-            localStorage.setItem(taskId, JSON.stringify(taskObj));
-        });
+        unmark.addEventListener('click', markAsNotDone);
         taskDiv.appendChild(createTaskName(input.value));
         if (limitDateInput.value.length > 0) {
-            let limit = createLimitDate(limitDateInput)
+            let limit = createLimitDate(limitDateInput.value)
             taskDiv.appendChild(limit);
         }
         let erase = createTrashIcon();
         taskDiv.appendChild(erase);
-        erase.addEventListener('click', function () {
-            this.parentNode.remove();
-            let taskId = this.parentNode.id;
-            localStorage.removeItem(taskId);
-        })
+        erase.addEventListener('click', deleteTask);
 
         let task = new Task(input.value, limitDateInput.value, false);
         input.value = '';
@@ -60,6 +38,34 @@ function addTask() {
         taskDiv.id = task.id;
         toDoContainer.appendChild(taskDiv)
     }
+}
+
+function markAsDone() {
+    this.classList.toggle("hidden");
+    doneContainer.appendChild(this.parentNode);
+    this.parentNode.children[1].classList.toggle("hidden");
+    let taskId = this.parentNode.id;
+    let taskString = localStorage.getItem(taskId);
+    let taskObj = JSON.parse(taskString);
+    taskObj.taskDone = true;
+    localStorage.setItem(taskId, JSON.stringify(taskObj));
+}
+
+function markAsNotDone() {
+    this.classList.toggle("hidden");
+    toDoContainer.appendChild(this.parentNode);
+    this.parentNode.children[0].classList.toggle("hidden");
+    let taskId = this.parentNode.id;
+    let taskString = localStorage.getItem(taskId);
+    let taskObj = JSON.parse(taskString);
+    taskObj.taskDone = false;
+    localStorage.setItem(taskId, JSON.stringify(taskObj));
+}
+
+function deleteTask() {
+    this.parentNode.remove();
+    let taskId = this.parentNode.id;
+    localStorage.removeItem(taskId);
 }
 
 function createMarkAsDoneIcon() {
@@ -92,7 +98,7 @@ function createLimitDate(dateLimit) {
     div.appendChild(icon);
     let date = document.createElement('span');
     date.className = "limit-date";
-    let inputDate = new Date(dateLimit.value);
+    let inputDate = new Date(dateLimit);
     date.innerText = inputDate.toLocaleDateString();
     div.appendChild(date)
     let actualDate = new Date();
@@ -139,4 +145,43 @@ function Task(taskName, taskLimit, taskDone) {
     // this.getID = function () {
     //     return this.id;
     // }
+}
+
+function recoverTaskFromLocalStorage() {
+    for (let i = 0; i < localStorage.length; i++) {
+        console.log(localStorage.getItem(localStorage.key(i)))
+        let taskObj = JSON.parse(localStorage.getItem(localStorage.key(i)));
+        console.log(createRecoveredTaskFromLocalStorage(taskObj));
+        let taskHTML = createRecoveredTaskFromLocalStorage(taskObj);
+        if (taskObj.taskDone) {
+            doneContainer.appendChild(taskHTML);
+        } else {
+            toDoContainer.appendChild(taskHTML);
+        }
+    }
+}
+
+function createRecoveredTaskFromLocalStorage(taskObj) {
+    let div = document.createElement('div');
+    div.className = "task";
+    div.id = taskObj.id;
+    let mark = createMarkAsDoneIcon()
+    div.appendChild(mark);
+    mark.addEventListener('click', markAsDone);
+    let unmark = createMarkAsToDoIcon()
+    div.appendChild(unmark);
+    unmark.addEventListener('click', markAsNotDone);
+    if (taskObj.taskDone != false) {
+        mark.classList.toggle("hidden");
+        unmark.classList.toggle("hidden");
+    }
+    div.appendChild(createTaskName(taskObj.taskName));
+    if (taskObj.taskLimit != '') {
+        let limit = createLimitDate(taskObj.taskLimit)
+        div.appendChild(limit);
+    }
+    let erase = createTrashIcon();
+    div.appendChild(erase);
+    erase.addEventListener('click', deleteTask);
+    return div;
 }
