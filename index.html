@@ -20,11 +20,22 @@
     <main>
         <div id="add-task-container">
             <input id="add-task-input" type="text" placeholder="Añade tu tarea" />
+            <input type="date" id="limit_date">
             <button id="add-task-btn"><span class="material-symbols-outlined">add_task</span></button>
         </div>
         <div id="lists-container">
             <div id="to-do-container">
                 <h2>Pendientes</h2>
+                <div class="task">
+                    <span class="material-symbols-outlined mark-as-done">radio_button_unchecked</span>
+                    <span class="material-symbols-outlined mark-as-to-do hidden">check_circle</span>
+                    <span class="task_name">Tarea 1</span>
+                    <div class="limit-date-container">
+                        <span class="material-symbols-outlined limit-date-icon ">event</span>
+                        <span class="limit-date">01/02/2024</span>
+                    </div>
+                    <span class="material-symbols-outlined trash">delete</span>
+                </div>
             </div>
             <div id="done-container">
                 <h2>Completadas</h2>

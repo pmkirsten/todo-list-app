@@ -1,6 +1,6 @@
 * {
   font-family: "Poetsen One", sans-serif;
-  /* border: 1px solid black; */
+  border: 1px solid black;
 }
 
 .hidden {
@@ -13,6 +13,22 @@ main,
 #lists-container {
   display: flex;
   justify-content: center;
+}
+
+.limit-date-icon {
+  font-size: 14px !important;
+}
+
+.limit-date-exceed {
+  color: red;
+}
+
+.limit-date-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 14px;
+  color: gray;
 }
 
 #lists-container {

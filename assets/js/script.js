@@ -2,6 +2,7 @@ var btnAddtask = document.getElementById("add-task-btn");
 var input = document.getElementById("add-task-input");
 var toDoContainer = document.getElementById("to-do-container");
 var doneContainer = document.getElementById("done-container");
+var limitDateInput = document.getElementById("limit_date");
 btnAddtask.addEventListener('click', addTask);
 input.addEventListener('keypress', function (event) {
     if (event.key === "Enter") {
@@ -59,6 +60,10 @@ function createTaskName(taskName) {
     span.className = "task_name"
     span.innerText = taskName;
     return span;
+}
+
+function createLimitDate(dateLimit) {
+
 }
 
 function createTrashIcon() {
