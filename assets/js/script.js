@@ -31,6 +31,10 @@ function addTask() {
             this.parentNode.children[0].classList.toggle("hidden");
         });
         taskDiv.appendChild(createTaskName(input.value));
+        if (limitDateInput.value.length > 0) {
+            let limit = createLimitDate(limitDateInput)
+            taskDiv.appendChild(limit);
+        }
         let erase = createTrashIcon();
         taskDiv.appendChild(erase);
         erase.addEventListener('click', function () {
@@ -63,12 +67,24 @@ function createTaskName(taskName) {
 }
 
 function createLimitDate(dateLimit) {
-
+    let div = document.createElement('div');
+    div.className = "limit-date-container";
+    let icon = document.createElement('span');
+    icon.className = "material-symbols-outlined limit-date-icon";
+    icon.innerText = "event";
+    div.appendChild(icon);
+    let date = document.createElement('span');
+    date.className = "limit-date";
+    let inputDate = new Date(dateLimit.value);
+    date.innerText = inputDate.toLocaleDateString();
+    div.appendChild(date)
+    dateLimit.value = '';
+    return div;
 }
 
 function createTrashIcon() {
     let span = document.createElement("span");
-    span.className = "material-symbols-outlined trash"
+    span.className = "material-symbols-outlined trash";
     span.innerText = "delete";
     return span;
 }
