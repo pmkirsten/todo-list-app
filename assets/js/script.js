@@ -22,6 +22,11 @@ function addTask() {
             this.classList.toggle("hidden");
             doneContainer.appendChild(this.parentNode);
             this.parentNode.children[1].classList.toggle("hidden");
+            let taskId = this.parentNode.id;
+            let taskString = localStorage.getItem(taskId);
+            let taskObj = JSON.parse(taskString);
+            taskObj.taskDone = true;
+            localStorage.setItem(taskId, JSON.stringify(taskObj));
         });
         let unmark = createMarkAsToDoIcon()
         taskDiv.appendChild(unmark);
@@ -29,6 +34,11 @@ function addTask() {
             this.classList.toggle("hidden");
             toDoContainer.appendChild(this.parentNode);
             this.parentNode.children[0].classList.toggle("hidden");
+            let taskId = this.parentNode.id;
+            let taskString = localStorage.getItem(taskId);
+            let taskObj = JSON.parse(taskString);
+            taskObj.taskDone = false;
+            localStorage.setItem(taskId, JSON.stringify(taskObj));
         });
         taskDiv.appendChild(createTaskName(input.value));
         if (limitDateInput.value.length > 0) {
@@ -39,6 +49,8 @@ function addTask() {
         taskDiv.appendChild(erase);
         erase.addEventListener('click', function () {
             this.parentNode.remove();
+            let taskId = this.parentNode.id;
+            localStorage.removeItem(taskId);
         })
 
         let task = new Task(input.value, limitDateInput.value, false);
