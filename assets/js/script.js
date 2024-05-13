@@ -40,7 +40,17 @@ function addTask() {
         erase.addEventListener('click', function () {
             this.parentNode.remove();
         })
+        let taskLimitVar;
+        if (limitDateInput.value != '') {
+            taskLimitVar = limitDateInput.value;
+        } else {
+            taskLimitVar = null;
+        }
+        let task = new Task(input.value, taskLimitVar, false);
+
+        console.log(task)
         input.value = '';
+        limitDateInput.value = '';
         toDoContainer.appendChild(taskDiv)
     }
 }
@@ -84,7 +94,6 @@ function createLimitDate(dateLimit) {
         icon.classList.toggle("limit-date-exceed");
         date.classList.toggle("limit-date-exceed");
     }
-    dateLimit.value = '';
     return div;
 }
 
@@ -93,4 +102,29 @@ function createTrashIcon() {
     span.className = "material-symbols-outlined trash";
     span.innerText = "delete";
     return span;
+}
+
+function Task(taskName, taskLimit, taskDone) {
+    this.taskName = taskName;
+    if (taskLimit != null) {
+        this.taskLimit = taskLimit;
+    } else {
+        this.taskLimit = '';
+    }
+    this.taskDone = taskDone;
+    this.taskCreate = new Date();
+
+
+    this.getName = function () {
+        return this.taskName;
+    };
+    this.getLimitDate = function () {
+        return this.taskLimit;
+    };
+    this.isDone = function () {
+        return this.taskDone
+    };
+    this.getCreationDate = function () {
+        return this.taskCreate;
+    }
 }
