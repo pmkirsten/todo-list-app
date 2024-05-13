@@ -40,13 +40,8 @@ function addTask() {
         erase.addEventListener('click', function () {
             this.parentNode.remove();
         })
-        let taskLimitVar;
-        if (limitDateInput.value != '') {
-            taskLimitVar = limitDateInput.value;
-        } else {
-            taskLimitVar = null;
-        }
-        let task = new Task(input.value, taskLimitVar, false);
+
+        let task = new Task(input.value, limitDateInput.value, false);
 
         console.log(task)
         input.value = '';
@@ -106,14 +101,9 @@ function createTrashIcon() {
 
 function Task(taskName, taskLimit, taskDone) {
     this.taskName = taskName;
-    if (taskLimit != null) {
-        this.taskLimit = taskLimit;
-    } else {
-        this.taskLimit = '';
-    }
+    this.taskLimit = taskLimit;
     this.taskDone = taskDone;
     this.taskCreate = new Date();
-
 
     this.getName = function () {
         return this.taskName;
