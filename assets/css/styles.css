@@ -1,10 +1,16 @@
 * {
-  font-family: "Poetsen One", sans-serif;
+  font-family: "Noto Sans", sans-serif;
+  background-color: #2d2d3c;
+  color: #9b9b9b;
   /* border: 1px solid black; */
 }
 
 .hidden {
   display: none !important;
+}
+
+body {
+  padding: 2rem;
 }
 
 header,
@@ -15,12 +21,119 @@ main,
   justify-content: center;
 }
 
+header {
+  margin-bottom: 30px;
+}
+
+#add-task-container {
+  box-sizing: border-box;
+}
+
+.task-input-name,
+.task-input-date {
+  position: relative;
+}
+
+.task-input-date input,
+.task-input-name input {
+  position: relative;
+  font-size: 20px;
+  padding: 10px 0px 10px 0px;
+  display: block;
+  width: 300px;
+  border: none;
+  border-bottom: 1px solid #9b9b9b;
+}
+
+.task-input-date input {
+  width: 150px;
+  height: 27px;
+}
+
+.task-input-date input:focus,
+.task-input-name input:focus {
+  outline: none;
+}
+
+.task-input-name label {
+  font-size: 18px;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 0.2s ease all;
+}
+
+.task-input-date label {
+  font-size: 14px;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: -20px;
+  transition: 0.2s ease all;
+}
+
+.task-input-name input:focus ~ label {
+  color: #de4c3f;
+}
+
+.task-input-name input:focus ~ label,
+.task-input-name input:not(:placeholder-shown) ~ label {
+  top: -20px;
+  font-size: 14px;
+}
+
+.task-input-date input:focus ~ label {
+  color: #de4c3f;
+}
+
+.task-input-date .bar,
+.task-input-name .bar {
+  position: relative;
+  display: block;
+  width: 300px;
+}
+
+.task-input-date .bar {
+  width: 150px;
+}
+
+.task-input-date .bar:before,
+.task-input-date .bar:after,
+.task-input-name .bar:before,
+.task-input-name .bar:after {
+  content: "";
+  height: 2.5px;
+  width: 0;
+  bottom: 0px;
+  position: absolute;
+  background: #de4c3f;
+  transition: 0.2s ease all;
+}
+
+.task-input-date .bar:before,
+.task-input-name .bar:before {
+  left: 50%;
+}
+
+.task-input-date .bar:after,
+.task-input-name .bar:after {
+  right: 50%;
+}
+
+.task-input-name input:focus ~ .bar:before,
+.task-input-name input:focus ~ .bar:after,
+.task-input-date input:focus ~ .bar:before,
+.task-input-date input:focus ~ .bar:after {
+  width: 50%;
+}
+
 .limit-date-icon {
   font-size: 14px !important;
 }
 
 .limit-date-exceed {
-  color: red;
+  color: #de4c3f;
 }
 
 .limit-date-container {
@@ -40,6 +153,11 @@ main,
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+}
+
+#done-container .task span.task_name,
+#done-container .task .limit-date-container .limit-date-exceed {
+  text-decoration: line-through;
 }
 
 .task {
@@ -64,4 +182,38 @@ footer {
   position: absolute;
   bottom: 0;
   right: 0;
+}
+
+.btn {
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover span {
+  color: #eba29c;
+}
+
+.mark-as-done,
+.mark-as-to-do,
+.trash {
+  color: #de4c3f;
+}
+
+.mark-as-done:hover,
+.mark-as-to-do:hover,
+.trash:hover {
+  color: #eba29c;
+  cursor: pointer;
+}
+
+::-webkit-calendar-picker-indicator {
+  color: #9b9b9b;
+}
+
+#calendar-month-icon {
+  position: absolute;
+  right: 0;
+  top: 14px;
+  font-size: 20px;
+  pointer-events: none;
 }

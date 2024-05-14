@@ -1,9 +1,23 @@
-var btnAddtask = document.getElementById("add-task-btn");
 var input = document.getElementById("add-task-input");
+var addLimitBtn = document.getElementById("add-limit-btn")
+var addLimitContainer = document.getElementById("task-input-date")
+var addTaskBtn = document.getElementById("add-task-btn")
 var toDoContainer = document.getElementById("to-do-container");
 var doneContainer = document.getElementById("done-container");
 var limitDateInput = document.getElementById("limit-date-input");
-btnAddtask.addEventListener('click', addTask);
+var calendarCustomBtn = document.getElementById("calendar-month-icon");
+
+addTaskBtn.addEventListener('click', addTask);
+
+calendarCustomBtn.addEventListener('click', function () {
+    var event = new KeyboardEvent('keydown', { key: ' ' });
+    limitDateInput.dispatchEvent(event);
+});
+
+addLimitBtn.addEventListener('click', function () {
+    addLimitContainer.classList.toggle("hidden");
+});
+
 input.addEventListener('keypress', function (event) {
     if (event.key === "Enter") {
         event.preventDefault();
@@ -37,6 +51,9 @@ function addTask() {
         localStorage.setItem(task.id, JSON.stringify(task));
         taskDiv.id = task.id;
         toDoContainer.appendChild(taskDiv)
+        if (!addLimitContainer.classList.contains("hidden")) {
+            addLimitContainer.classList.toggle("hidden");
+        }
     }
 }
 
