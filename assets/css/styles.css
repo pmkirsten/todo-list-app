@@ -156,7 +156,7 @@ header {
 }
 
 #done-container .task span.task_name,
-#done-container .task .limit-date-container .limit-date-exceed {
+#done-container .task .limit-date-container .limit-date {
   text-decoration: line-through;
 }
 
