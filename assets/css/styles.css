@@ -1,6 +1,6 @@
 * {
   font-family: "Noto Sans", sans-serif;
-  background-color: #2d2d3c;
+
   color: #9b9b9b;
   /* border: 1px solid black; */
 }
@@ -11,6 +11,7 @@
 
 body {
   padding: 2rem;
+  background-color: #2d2d3c;
 }
 
 header,
@@ -216,4 +217,16 @@ footer {
   top: 14px;
   font-size: 20px;
   pointer-events: none;
+}
+
+#add-task-input,
+#limit-date-input,
+#calendar-month-icon,
+#add-limit-btn,
+#add-task-btn {
+  background-color: #2d2d3c;
+}
+
+.task {
+  background-color: #ffffff22;
 }
