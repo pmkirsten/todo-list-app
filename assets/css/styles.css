@@ -3,9 +3,51 @@
   /* border: 1px solid black; */
 }
 
+:root{
+  --variableColorFondo: rgb(190, 188, 184);
+  --sizeText:225px;
+}
+
+body {
+  margin: 0;
+  margin-bottom: 40px;
+  background-color: #e5e5f7;
+  background-image: radial-gradient(#444cf7 1.1px, #e5e5f7 1.1px);
+  background-size: 22px 22px; 
+}
+
+/*h1{
+  font-size: var(--sizeText) ;
+}*/
+
+html{
+  min-height: 100%;
+  position: relative;
+}
+
+.limit-date-container {
+  position: absolute;
+  right: 35px;
+}
+
 .hidden {
   display: none !important;
 }
+
+/*h2{
+  margin: 10px auto;
+}*/
+h2{
+  text-align: center;
+}
+
+#add-task-container {
+  gap: 10px;
+}
+
+/*#add-task-input{
+  margin-right: 10px;
+}*/
 
 header,
 main,
@@ -31,6 +73,8 @@ main,
   color: gray;
 }
 
+
+
 #lists-container {
   gap: 10px;
 }
@@ -40,28 +84,86 @@ main,
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  width: 50%;
 }
+
+/*.task:hover {
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.9);
+  margin-left: 8px;
+  transition: 0.5s;
+}*/
+
+.task:hover {
+  box-shadow: 0 6px 6px 2px rgba(0, 0, 0.3, 0.15);
+  transform: translateY(-2px);
+}
+
 
 .task {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  flex-flow: row wrap;
   padding: 8px;
   margin: 5px;
   position: relative;
   gap: 10px;
+  background-color: whitesmoke;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 4px;
 }
 
+span.task_name {
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+
+
+/*footer {
+   position: absolute;
+  bottom: 0;
+  right: 0; */
+  /*text-align: center;
+  background-color: #e1dede;
+  padding: 8px;
+  border-radius: 4px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  bottom: 10px;
+  
+  height: 20px;
+  
+  width: 100%;
+  left: 50%; transform: translateX(-50%); 
+}*/
+footer {
+  position: absolute;
+  bottom: 0;
+  color: skyblue;
+  display: flex;
+  
+  justify-content: center;
+  background-color: white;
+  width: 100%;
+  height: 20px;
+  margin: 0;
+}
+
+/*.trash {
+  float:left;
+}
 .trash {
   position: absolute;
   right: 10px;
-}
+}*/
+
 
 main {
   flex-direction: column;
 }
 
-footer {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-}
+
+
