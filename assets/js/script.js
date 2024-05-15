@@ -16,6 +16,14 @@ calendarCustomBtn.addEventListener('click', function () {
 
 addLimitBtn.addEventListener('click', function () {
     addLimitContainer.classList.toggle("hidden");
+    if (!addLimitContainer.classList.contains("hidden")) {
+        addLimitBtn.childNodes[0].innerText = "event_busy";
+        addLimitBtn.setAttribute("title", "Eliminar fecha límite")
+    } else {
+        addLimitBtn.childNodes[0].innerText = "event";
+        addLimitBtn.setAttribute("title", "Establecer fecha límite")
+        limitDateInput.value = '';
+    }
 });
 
 input.addEventListener('keypress', function (event) {
@@ -48,7 +56,7 @@ function addTask() {
         let task = new Task(input.value, limitDateInput.value, false);
         input.value = '';
         limitDateInput.value = '';
-        localStorage.setItem(task.id, JSON.stringify(task));
+        saveTaskToLocalStorage(task);
         taskDiv.id = task.id;
         toDoContainer.appendChild(taskDiv)
         if (!addLimitContainer.classList.contains("hidden")) {
@@ -62,10 +70,9 @@ function markAsDone() {
     doneContainer.appendChild(this.parentNode);
     this.parentNode.children[1].classList.toggle("hidden");
     let taskId = this.parentNode.id;
-    let taskString = localStorage.getItem(taskId);
-    let taskObj = JSON.parse(taskString);
+    let taskObj = retrieveTaskFromLocalStorage(taskId)
     taskObj.taskDone = true;
-    localStorage.setItem(taskId, JSON.stringify(taskObj));
+    saveTaskToLocalStorage(taskObj)
 }
 
 function markAsNotDone() {
@@ -73,16 +80,15 @@ function markAsNotDone() {
     toDoContainer.appendChild(this.parentNode);
     this.parentNode.children[0].classList.toggle("hidden");
     let taskId = this.parentNode.id;
-    let taskString = localStorage.getItem(taskId);
-    let taskObj = JSON.parse(taskString);
+    let taskObj = retrieveTaskFromLocalStorage(taskId)
     taskObj.taskDone = false;
-    localStorage.setItem(taskId, JSON.stringify(taskObj));
+    saveTaskToLocalStorage(taskObj)
 }
 
 function deleteTask() {
     this.parentNode.remove();
     let taskId = this.parentNode.id;
-    localStorage.removeItem(taskId);
+    deleteTaskFromLocalStorage(taskId);
 }
 
 function createMarkAsDoneIcon() {
@@ -140,38 +146,22 @@ function Task(taskName, taskLimit, taskDone) {
     this.taskDone = taskDone;
     this.taskCreate = new Date();
     this.id = crypto.randomUUID();
-
-    // this.getName = function () {
-    //     return this.taskName;
-    // };
-    // this.getLimitDate = function () {
-    //     return this.taskLimit;
-    // };
-    // this.isDone = function () {
-    //     return this.taskDone
-    // };
-    // this.getCreationDate = function () {
-    //     return this.taskCreate;
-    // }
-    // this.markAsDone = function () {
-    //     this.taskDone = true;
-    // }
-    // this.markAsNotDone = function () {
-    //     this.taskDone = false;
-    // }
-    // this.getID = function () {
-    //     return this.id;
-    // }
 }
 
-function recoverTaskFromLocalStorage() {
-    for (let i = 0; i < localStorage.length; i++) {
-        let taskObj = JSON.parse(localStorage.getItem(localStorage.key(i)));
-        let taskHTML = createRecoveredTaskFromLocalStorage(taskObj);
-        if (taskObj.taskDone) {
-            doneContainer.appendChild(taskHTML);
-        } else {
-            toDoContainer.appendChild(taskHTML);
+function loadTasksFromLocalStorage() {
+    var storageArray = localStorage.getItem('taskapp')
+    if (storageArray != null) {
+        let arrayMap = JSON.parse(storageArray);
+        if (arrayMap.length != 0) {
+            for (let i = 0; i < arrayMap.length; i++) {
+                let taskObj = arrayMap[i][1];
+                let taskHTML = createRecoveredTaskFromLocalStorage(arrayMap[i][1]);
+                if (taskObj.taskDone) {
+                    doneContainer.appendChild(taskHTML);
+                } else {
+                    toDoContainer.appendChild(taskHTML);
+                }
+            }
         }
     }
 }
@@ -199,4 +189,40 @@ function createRecoveredTaskFromLocalStorage(taskObj) {
     div.appendChild(erase);
     erase.addEventListener('click', deleteTask);
     return div;
+}
+
+function saveTaskToLocalStorage(taskObj) {
+    let storage = localStorage.getItem('taskapp');
+    let storageMap
+    if (storage != null) {
+        storageMap = new Map(JSON.parse(storage));
+    } else {
+        storageMap = new Map();
+    }
+    storageMap.set(taskObj.id, taskObj)
+    let mapArray = Array.from(storageMap);
+    localStorage.setItem('taskapp', JSON.stringify(mapArray));
+}
+
+function retrieveTaskFromLocalStorage(taskid) {
+    let storage = localStorage.getItem('taskapp');
+    if (storage != null) {
+        let arrayMap = JSON.parse(storage);
+        let map = new Map(arrayMap);
+        return map.get(taskid);
+    } else {
+        return null;
+    }
+}
+
+function deleteTaskFromLocalStorage(taskid) {
+    let storage = localStorage.getItem('taskapp');
+    if (storage != null) {
+        let arrayMap = JSON.parse(storage);
+        let map = new Map(arrayMap);
+        map.delete(taskid);
+        let mapArray = Array.from(map);
+        localStorage.setItem('taskapp', JSON.stringify(mapArray));
+    }
+
 }
